@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ArrowsWP</string>
+    <array name="backgrounds">
+        <item name="Jupiter">Jupiter</item>
+        <item name="Neptune">Neptune</item>
+        <item name="Saturn">Saturn</item>
+    </array>
+</resources>
