@@ -1,7 +1,7 @@
 
 package org.abalazsik.arrowswp.helper;
 
-import java.util.Random;
+import org.abalazsik.arrowswp.Constants;
 
 /**
  *
@@ -13,14 +13,15 @@ public class GraphicsOptions {
 	private float disp1 = 0.1f;
 	private float disp2 = 0.2f;
 
-	private int color = 0xffff0000;
-	private int color2 = 0xffa00000;
-	private int borderColor = 0xff000000;
+	private int color = Constants.ColorsAsInts.RED1;
+	private int color2 = Constants.ColorsAsInts.RED2;
+	private int borderColor = Constants.ColorsAsInts.BLACK;
 
 	private boolean randomColor = false;
 
-	private int backgroundColor = 0xff000000;
+	private int backgroundColor = Constants.ColorsAsInts.BLACK;
 	private boolean wrapBackground = false;
+	private boolean withBorder = true;
 	
 	public boolean isDisplacementEnabled() {
 		return displacementEnabled;
@@ -100,6 +101,15 @@ public class GraphicsOptions {
 
 	public GraphicsOptions setBorderColor(int borderColor) {
 		this.borderColor = borderColor;
+		return this;
+	}
+
+	public boolean withBorder() {
+		return withBorder;
+	}
+
+	public GraphicsOptions setWithBorder(boolean withBorder) {
+		this.withBorder = withBorder;
 		return this;
 	}
 }

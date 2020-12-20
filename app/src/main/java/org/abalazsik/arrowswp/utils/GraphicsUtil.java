@@ -17,7 +17,7 @@ public class GraphicsUtil {
     //simple arrow
     public static void drawArrow(Canvas g, float x, float y, float m, float length, int segments, Property dtangent, ArrowsContext context) {
 
-        Paint paint = optionsToPaint(context);
+        Paint paint = contextToPaint(context);
 
         float K = length / segments;
 
@@ -62,14 +62,18 @@ public class GraphicsUtil {
             ys[i + 1] = y2;
         }
 
-        Paint paint = optionsToPaint(context);
+        Paint paint = contextToPaint(context);
+
+        GraphicsOptions options = context.getGraphicsOptions();
 
         ArrowBuilderHelper body = ArrowUtil.createBoldArrow(xs, ys, noPoints, weight);
         drawPolygon(g, body.getXs(), body.getYs(), paint);
 
-        paint.setColor(0xff000000);
-        paint.setStyle(Paint.Style.STROKE);
-        drawPolygon(g, body.getXs(), body.getYs(), paint);
+        if (options.withBorder()) {
+            paint.setColor(options.getBorderColor());
+            paint.setStyle(Paint.Style.STROKE);
+            drawPolygon(g, body.getXs(), body.getYs(), paint);
+        }
     }
 
     public static void drawPolygon(Canvas c, float[] xs, float[] ys, Paint paint) {
@@ -90,7 +94,7 @@ public class GraphicsUtil {
 
         GraphicsOptions options = context.getGraphicsOptions();
 
-        Paint paint = optionsToPaint(context);
+        Paint paint = contextToPaint(context);
 
         g.drawLine(fromX, fromY, toX, toY, paint);
 
@@ -109,7 +113,7 @@ public class GraphicsUtil {
         }
     }
 
-    private static Paint optionsToPaint(ArrowsContext context) {
+    private static Paint contextToPaint(ArrowsContext context) {
         Paint paint =  new Paint();
         paint.setColor(getColor(context));
         return  paint;

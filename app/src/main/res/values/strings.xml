@@ -4,5 +4,6 @@
         <item name="Jupiter">Jupiter</item>
         <item name="Neptune">Neptune</item>
         <item name="Saturn">Saturn</item>
+        <item name="Mars">Mars</item>
     </array>
 </resources>
