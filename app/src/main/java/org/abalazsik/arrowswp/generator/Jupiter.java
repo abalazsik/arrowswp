@@ -6,11 +6,13 @@ import android.graphics.Canvas;
 import org.abalazsik.arrowswp.Constants;
 import org.abalazsik.arrowswp.helper.ArrowsContext;
 import org.abalazsik.arrowswp.helper.GraphicsOptions;
-import org.abalazsik.arrowswp.property.Alternate;
 import org.abalazsik.arrowswp.property.FirstGradeWithLowerBound;
 import org.abalazsik.arrowswp.property.Property;
+import org.abalazsik.arrowswp.property.SignedAlternate;
 import org.abalazsik.arrowswp.utils.ArrowUtil;
 import org.abalazsik.arrowswp.utils.GraphicsUtil;
+
+import java.util.Random;
 
 public class Jupiter implements BackgroundGenerator {
 
@@ -22,6 +24,7 @@ public class Jupiter implements BackgroundGenerator {
         int width = context.getWidth();
         int height = context.getHeight();
         GraphicsOptions options = context.getGraphicsOptions();
+        Random random = context.getRandom();
 
         Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
@@ -43,7 +46,7 @@ public class Jupiter implements BackgroundGenerator {
                 float cos = (float)Math.cos(i * rad);
                 float sin = (float)Math.sin(i * rad);
 
-                tangent = new Alternate(context.getRandom().nextInt(6) + 3, 0.35f * context.getRandom().nextFloat() + 0.1f);
+                tangent = new SignedAlternate(random.nextInt(6) + 3, 0.35f * random.nextFloat() + 0.1f, random.nextBoolean());
 
                 int length = width / 3;
 

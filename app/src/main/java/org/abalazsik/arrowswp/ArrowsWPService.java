@@ -97,7 +97,9 @@ public class ArrowsWPService extends WallpaperService {
                     }
                 }
             } finally {
-                holder.unlockCanvasAndPost(canvas);
+                if(canvas != null) {
+                    holder.unlockCanvasAndPost(canvas);
+                }
             }
         }
 
