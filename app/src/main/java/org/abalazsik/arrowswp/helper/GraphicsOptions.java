@@ -22,6 +22,7 @@ public class GraphicsOptions {
 	private int backgroundColor = Constants.ColorsAsInts.BLACK;
 	private boolean wrapBackground = false;
 	private boolean withBorder = true;
+	private boolean antialiasing = true;
 	
 	public boolean isDisplacementEnabled() {
 		return displacementEnabled;
@@ -110,6 +111,15 @@ public class GraphicsOptions {
 
 	public GraphicsOptions setWithBorder(boolean withBorder) {
 		this.withBorder = withBorder;
+		return this;
+	}
+
+	public boolean isAntialiasing() {
+		return antialiasing;
+	}
+
+	public GraphicsOptions setAntialiasing(boolean antialiasing) {
+		this.antialiasing = antialiasing;
 		return this;
 	}
 }

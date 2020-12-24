@@ -11,6 +11,7 @@ import android.view.SurfaceHolder;
 import org.abalazsik.arrowswp.generator.BackgroundGenerator;
 import org.abalazsik.arrowswp.generator.Jupiter;
 import org.abalazsik.arrowswp.generator.Mars;
+import org.abalazsik.arrowswp.generator.Mercury;
 import org.abalazsik.arrowswp.generator.Neptune;
 import org.abalazsik.arrowswp.generator.Saturn;
 import org.abalazsik.arrowswp.helper.ArrowsContext;
@@ -110,6 +111,8 @@ public class ArrowsWPService extends WallpaperService {
                 return new Neptune();
             } else if ("Mars".equals(type)) {
                 return new Mars();
+            } else if ("Mercury".equals(type)) {
+                return new Mercury();
             } else {
                 return new Saturn();
             }

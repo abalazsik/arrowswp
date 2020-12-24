@@ -1,5 +1,6 @@
 package org.abalazsik.arrowswp.utils;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -139,12 +140,51 @@ public class GraphicsUtil {
         }
     }
 
+    private static float fract(float f) {
+        return f - (int)f;
+    }
+
+    public static int getPixel(Bitmap source, float x, float y) {
+        int x1 = (int) x;
+        int y1 = (int) y;
+
+        if (!(x1 >= 0 && x1 < source.getWidth() && y1 >= 0 && y1 < source.getHeight())) {
+            x1 = (x1 + source.getWidth()) % source.getWidth();
+            y1 = (y1 + source.getHeight()) % source.getHeight();
+        }
+
+        int x2 = Math.round(x);
+        int y2 = Math.round(y);
+
+        if (!(x2 >= 0 && x2 < source.getWidth() && y2 >= 0 && y2 < source.getHeight())) {
+            x2 = (x2 + source.getWidth()) % source.getWidth();
+            y2 = (y2 + source.getHeight()) % source.getHeight();
+        }
+
+        return blendColor(source.getPixel(x1, y1), source.getPixel(x2, y2), 1f - Math.max(fract(x), fract(y)));
+    }
+
     public static int getRandomColor(ArrowsContext context) {
 
         int color1 = context.getGraphicsOptions().getColor();
         int color2 = context.getGraphicsOptions().getColor2();
 
         float f = context.getRandom().nextFloat();
+        return blendColor(color1, color2, f);
+    }
+
+    public static int blendColor(int color1, int color2, float f) {
+        if (f <= 0) {
+            return color1;
+        }
+
+        if (f >= 1f) {
+            return color2;
+        }
+
+        if (color1 == color2) {
+            return color1;
+        }
 
         int a = (color2 >> 24) & 0xff;
         int r = (color2 >> 16) & 0xff;

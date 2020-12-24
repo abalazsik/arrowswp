@@ -55,7 +55,7 @@ public class Saturn implements BackgroundGenerator {
     public GraphicsOptions getPrefferedGraphicsOptions() {
         return new GraphicsOptions()
                 .setColor(Constants.ColorsAsInts.RED1)
-                .setColor(Constants.ColorsAsInts.RED2)
+                .setColor2(Constants.ColorsAsInts.RED2)
                 .setRandomColor(true)
                 .setBackgroundColor(Constants.ColorsAsInts.BLACK);
     }

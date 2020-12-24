@@ -48,19 +48,35 @@ public class KaleidoscopeUtil {
 				closest = closest(kpoints, x, y);
 				
 				Vector point = Vector.gaussElimination(closest.getBasei(), closest.getBasej(), (float)x - dstCenterX, (float)y - dstCenterY);
-				
-				int srcX = (int)(point.getI() + srcCenterX);
-				int srcY = (int)(point.getJ() + srcCenterY);
-				
-				if (srcX >= 0 && srcX < source.getWidth() && srcY >= 0 && srcY < source.getHeight()) {
-					result.setPixel(x, y, source.getPixel(srcX, srcY));
-				} else if (options.isWrapBackground()) {
-					int sx = (srcX + source.getWidth()) % source.getWidth();
-					int sy = (srcY + source.getHeight()) % source.getHeight();
-					
-					result.setPixel(x, y, source.getPixel(sx, sy));
+
+				if (options.isAntialiasing()) {
+					float srcX = (point.getI() + srcCenterX);
+					float srcY = (point.getJ() + srcCenterY);
+
+					if (srcX >= 0 && srcX < source.getWidth() && srcY >= 0 && srcY < source.getHeight()) {
+						result.setPixel(x, y, GraphicsUtil.getPixel(source, srcX, srcY));
+					} else if (options.isWrapBackground()) {
+						srcX = (srcX + source.getWidth()) % source.getWidth();
+						srcY = (srcY + source.getHeight()) % source.getHeight();
+
+						result.setPixel(x, y, GraphicsUtil.getPixel(source, srcX, srcY));
+					} else {
+						result.setPixel(x, y, options.getBackgroundColor());
+					}
 				} else {
-					result.setPixel(x, y, options.getBackgroundColor());
+					int srcX = Math.round(point.getI() + srcCenterX);
+					int srcY = Math.round(point.getJ() + srcCenterY);
+
+					if (srcX >= 0 && srcX < source.getWidth() && srcY >= 0 && srcY < source.getHeight()) {
+						result.setPixel(x, y, source.getPixel(srcX, srcY));
+					} else if (options.isWrapBackground()) {
+						int sx = (srcX + source.getWidth()) % source.getWidth();
+						int sy = (srcY + source.getHeight()) % source.getHeight();
+
+						result.setPixel(x, y, source.getPixel(sx, sy));
+					} else {
+						result.setPixel(x, y, options.getBackgroundColor());
+					}
 				}
 			}
 		}
@@ -86,14 +102,6 @@ public class KaleidoscopeUtil {
 	private static class KPoint {
 		private float x, y;
 		private Vector basei , basej;
-
-		public KPoint() {
-		}
-
-		public KPoint(float x, float y) {
-			this.x = x;
-			this.y = y;
-		}
 
 		public KPoint(float x, float y, Vector basei, Vector basej) {
 			this.x = x;

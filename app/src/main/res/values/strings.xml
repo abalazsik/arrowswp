@@ -5,5 +5,6 @@
         <item name="Neptune">Neptune</item>
         <item name="Saturn">Saturn</item>
         <item name="Mars">Mars</item>
+        <item name="Mercury">Mercury</item>
     </array>
 </resources>
