@@ -7,4 +7,11 @@
         <item name="Mars">Mars</item>
         <item name="Mercury">Mercury</item>
     </array>
+    <array name="color_schemes">
+        <item name="default">default</item>
+        <item name="red">red</item>
+        <item name="pink">pink</item>
+        <item name="blue">blue</item>
+        <item name="green">green</item>
+    </array>
 </resources>

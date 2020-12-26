@@ -205,6 +205,6 @@ public class GraphicsUtil {
     }
 
     public static int getComplementerColor(int color) {
-        return 0xffffffff - color;
+        return (0xffffffff - color) | 0xff000000;
     }
 }

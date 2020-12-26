@@ -15,6 +15,7 @@ import org.abalazsik.arrowswp.generator.Mercury;
 import org.abalazsik.arrowswp.generator.Neptune;
 import org.abalazsik.arrowswp.generator.Saturn;
 import org.abalazsik.arrowswp.helper.ArrowsContext;
+import org.abalazsik.arrowswp.utils.ColorSchemeUtil;
 
 //CHECK OUT THIS CHOON: https://soundcloud.com/justicehardcore/5year
 
@@ -30,6 +31,8 @@ public class ArrowsWPService extends WallpaperService {
         private long lastUpdate = 0;
         private BackgroundGenerator generator;
         private SharedPreferences prefs;
+        private boolean rendering = false;
+        private String colorScheme = Constants.Strings.DEFAULT;
 
         private static final long DEBOUNCE_INTERVAL = 7000;
 
@@ -39,7 +42,8 @@ public class ArrowsWPService extends WallpaperService {
             prefs = PreferenceManager
                     .getDefaultSharedPreferences(ArrowsWPService.this);
             prefs.registerOnSharedPreferenceChangeListener(this);
-            generator = getGeneratorByString(prefs.getString("generator-type", "Jupiter"));
+            generator = getGeneratorByString(prefs.getString(Constants.UI.GENERATOR_TYPE, Constants.PlanetNames.JUPITER));
+            colorScheme = prefs.getString(Constants.UI.COLOR_SCHEME, Constants.Strings.DEFAULT);
         }
 
         @Override
@@ -61,13 +65,15 @@ public class ArrowsWPService extends WallpaperService {
         }
 
         private void debounceAndRender(SurfaceHolder holder, boolean force) {
-            if (force || System.currentTimeMillis() - lastUpdate > DEBOUNCE_INTERVAL) {
+            if ((force || System.currentTimeMillis() - lastUpdate > DEBOUNCE_INTERVAL) && !rendering) {
+                rendering = true;
                 Rect rect = holder.getSurfaceFrame();
                 if (bitmap != null && !bitmap.isRecycled()) {
                     bitmap.recycle();
                 }
                 bitmap = renderImage(rect.width(), rect.height());
                 lastUpdate = System.currentTimeMillis();
+                rendering = false;
             }
             drawFrame();
         }
@@ -75,13 +81,17 @@ public class ArrowsWPService extends WallpaperService {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             if (Constants.UI.GENERATOR_TYPE.equals(key)) {
-                generator = getGeneratorByString(prefs.getString("generator-type", "Jupiter"));
+                generator = getGeneratorByString(prefs.getString(Constants.UI.GENERATOR_TYPE, Constants.PlanetNames.JUPITER));
                 debounceAndRender(getSurfaceHolder(), true);
+            } else if (Constants.UI.COLOR_SCHEME.equals(key)) {
+                colorScheme = prefs.getString(Constants.UI.COLOR_SCHEME, Constants.Strings.DEFAULT);
             }
         }
 
         private Bitmap renderImage(int width, int height) {
-            return generator.generate(new ArrowsContext(width, height, generator.getPrefferedGraphicsOptions()));
+            return generator.generate(
+                    new ArrowsContext(width, height,
+                            ColorSchemeUtil.applyColorScheme(colorScheme, generator.getPrefferedGraphicsOptions())));
         }
 
         private void drawFrame() {
@@ -105,13 +115,13 @@ public class ArrowsWPService extends WallpaperService {
         }
 
         public BackgroundGenerator getGeneratorByString(String type) {
-            if (type == null || "Jupiter".equals(type)) {
+            if (type == null || Constants.PlanetNames.JUPITER.equals(type)) {
                 return new Jupiter();
-            } else if ("Neptune".equals(type)) {
+            } else if (Constants.PlanetNames.NEPTUNE.equals(type)) {
                 return new Neptune();
-            } else if ("Mars".equals(type)) {
+            } else if (Constants.PlanetNames.MARS.equals(type)) {
                 return new Mars();
-            } else if ("Mercury".equals(type)) {
+            } else if (Constants.PlanetNames.MERCURY.equals(type)) {
                 return new Mercury();
             } else {
                 return new Saturn();

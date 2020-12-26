@@ -6,4 +6,10 @@
         android:entryValues="@array/backgrounds"
         android:key="generator-type"
         android:title="Type" />
+    <ListPreference
+        android:defaultValue="default"
+        android:entries="@array/color_schemes"
+        android:entryValues="@array/color_schemes"
+        android:key="color-scheme"
+        android:title="Colorscheme" />
 </PreferenceScreen>
