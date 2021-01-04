@@ -33,7 +33,7 @@ public class KaleidoscopeUtil {
 			float y = (float)(dstCenterY + DIST * sin);
 			
 			if (i % 2 == 0) {
-				kpoints[i] = new KPoint(x, y, new Vector(cos, sin), new Vector(-sin, cos));
+				kpoints[i] = new KPoint(x, y, new Vector(cos, -sin), new Vector(sin, cos));
 			} else {
 				kpoints[i] = new KPoint(x, y, new Vector(cos, sin), new Vector(sin, -cos));
 			}

@@ -41,5 +41,6 @@ public class Constants {
         public static final String MARS = "Mars";
         public static final String MERCURY = "Mercury";
         public static final String SATURN = "Saturn";
+        public static final String VENUS = "Venus";
     }
 }

@@ -14,6 +14,7 @@ import org.abalazsik.arrowswp.generator.Mars;
 import org.abalazsik.arrowswp.generator.Mercury;
 import org.abalazsik.arrowswp.generator.Neptune;
 import org.abalazsik.arrowswp.generator.Saturn;
+import org.abalazsik.arrowswp.generator.Venus;
 import org.abalazsik.arrowswp.helper.ArrowsContext;
 import org.abalazsik.arrowswp.utils.ColorSchemeUtil;
 
@@ -123,6 +124,8 @@ public class ArrowsWPService extends WallpaperService {
                 return new Mars();
             } else if (Constants.PlanetNames.MERCURY.equals(type)) {
                 return new Mercury();
+            } else if (Constants.PlanetNames.VENUS.equals(type)) {
+                return new Venus();
             } else {
                 return new Saturn();
             }

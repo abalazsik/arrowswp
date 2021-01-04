@@ -29,11 +29,11 @@ public class Vector {
 	}
 
 	public static Vector gaussElimination(Vector baseI, Vector baseJ, float x, float y) {
-		
+
 		float a = baseI.getI();
-		float b = baseJ.getI();
-		
-		float c = baseI.getJ();
+		float b = baseI.getJ();
+
+		float c = baseJ.getI();
 		float d = baseJ.getJ();
 
 		//gauss elimination. Only do the necessary calculations
