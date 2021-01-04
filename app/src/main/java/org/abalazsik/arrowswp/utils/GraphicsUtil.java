@@ -144,6 +144,14 @@ public class GraphicsUtil {
         return f - (int)f;
     }
 
+    private static int floor(float f) {
+        return (int)f;
+    }
+
+    private static int ceil(float f) {
+        return (int)(f + 0.5f);
+    }
+
     public static int getPixel(Bitmap source, float x, float y) {
         int x1 = (int) x;
         int y1 = (int) y;
@@ -161,7 +169,69 @@ public class GraphicsUtil {
             y2 = (y2 + source.getHeight()) % source.getHeight();
         }
 
-        return blendColor(source.getPixel(x1, y1), source.getPixel(x2, y2), 1f - Math.max(fract(x), fract(y)));
+        if (x1 == x2 && y1 == y2) {
+            return source.getPixel(x1, y1);
+        } else {
+            return blendColor(source.getPixel(x1, y1), source.getPixel(x2, y2), 1f - Math.max(fract(x), fract(y)));
+        }
+    }
+
+    public static int getPixel4(Bitmap source, float x, float y) {
+        int[] colors = new int[4];
+        int cnt = 0;
+
+        int tx = ceil(x), ty = ceil(y);
+
+        if (tx >= 0 && tx < source.getWidth() && ty >= 0 && ty < source.getHeight()) {
+            colors[cnt++] = source.getPixel(tx, ty);
+        }
+
+        tx = floor(x);
+        ty = ceil(y);
+
+        if (tx >= 0 && tx < source.getWidth() && ty >= 0 && ty < source.getHeight()) {
+            colors[cnt++] = source.getPixel(tx, ty);
+        }
+
+        tx = ceil(x);
+        ty = floor(y);
+
+        if (tx >= 0 && tx < source.getWidth() && ty >= 0 && ty < source.getHeight()) {
+            colors[cnt++] = source.getPixel(tx, ty);
+        }
+
+        tx = floor(x);
+        ty = floor(y);
+
+        if (tx >= 0 && tx < source.getWidth() && ty >= 0 && ty < source.getHeight()) {
+            colors[cnt++] = source.getPixel(tx, ty);
+        }
+
+        return avgColors(colors, cnt);
+    }
+
+    public static int avgColors(int[] colors, int cnt) {
+        if (cnt == 0) {
+            throw new IllegalArgumentException();
+        }
+
+        if (cnt == 1) {
+            return colors[0];
+        }
+
+        int alpha = 0;
+        int red = 0;
+        int green = 0;
+        int blue = 0;
+
+        for (int i = 0; i < cnt; i++) {
+            alpha += (colors[i] >> 24) & 0xff;
+            red += (colors[i] >> 16) & 0xff;
+            green += (colors[i] >> 8) & 0xff;
+            blue += (colors[i]) & 0xff;
+        }
+
+        return (alpha / cnt) << 24 | (red / cnt) << 16 | (green / cnt) << 8 | (blue / cnt);
     }
 
     public static int getRandomColor(ArrowsContext context) {

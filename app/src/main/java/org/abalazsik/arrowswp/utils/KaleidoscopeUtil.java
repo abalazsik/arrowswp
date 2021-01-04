@@ -54,12 +54,12 @@ public class KaleidoscopeUtil {
 					float srcY = (point.getJ() + srcCenterY);
 
 					if (srcX >= 0 && srcX < source.getWidth() && srcY >= 0 && srcY < source.getHeight()) {
-						result.setPixel(x, y, GraphicsUtil.getPixel(source, srcX, srcY));
+						result.setPixel(x, y, GraphicsUtil.getPixel4(source, srcX, srcY));
 					} else if (options.isWrapBackground()) {
 						srcX = (srcX + source.getWidth()) % source.getWidth();
 						srcY = (srcY + source.getHeight()) % source.getHeight();
 
-						result.setPixel(x, y, GraphicsUtil.getPixel(source, srcX, srcY));
+						result.setPixel(x, y, GraphicsUtil.getPixel4(source, srcX, srcY));
 					} else {
 						result.setPixel(x, y, options.getBackgroundColor());
 					}
