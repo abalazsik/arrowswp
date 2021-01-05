@@ -1,5 +1,6 @@
 package org.abalazsik.arrowswp;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -72,7 +73,7 @@ public class ArrowsWPService extends WallpaperService {
                 if (bitmap != null && !bitmap.isRecycled()) {
                     bitmap.recycle();
                 }
-                bitmap = renderImage(rect.width(), rect.height());
+                bitmap = renderImage(rect.width(), rect.height(), ArrowsWPService.this);
                 lastUpdate = System.currentTimeMillis();
                 rendering = false;
             }
@@ -89,9 +90,9 @@ public class ArrowsWPService extends WallpaperService {
             }
         }
 
-        private Bitmap renderImage(int width, int height) {
+        private Bitmap renderImage(int width, int height, Context context) {
             return generator.generate(
-                    new ArrowsContext(width, height,
+                    new ArrowsContext(width, height, context,
                             ColorSchemeUtil.applyColorScheme(colorScheme, generator.getPrefferedGraphicsOptions())));
         }
 

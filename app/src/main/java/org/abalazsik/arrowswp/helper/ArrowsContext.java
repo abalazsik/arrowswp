@@ -1,5 +1,7 @@
 package org.abalazsik.arrowswp.helper;
 
+import android.content.Context;
+
 import java.util.Random;
 
 public class ArrowsContext {
@@ -7,11 +9,13 @@ public class ArrowsContext {
     private int height;
     private GraphicsOptions graphicsOptions;
     private Random random;//for random, but reproducible images
+    private Context context;//for hardware accelerated effects
 
-    public ArrowsContext(int width, int height, GraphicsOptions graphicsOptions) {
+    public ArrowsContext(int width, int height, Context context, GraphicsOptions graphicsOptions) {
         this.width = width;
         this.height = height;
         this.graphicsOptions = graphicsOptions;
+        this.context = context;
         random = new Random();
     }
 
@@ -55,6 +59,15 @@ public class ArrowsContext {
 
     public ArrowsContext setRandom(Random random) {
         this.random = random;
+        return this;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public ArrowsContext setContext(Context context) {
+        this.context = context;
         return this;
     }
 }

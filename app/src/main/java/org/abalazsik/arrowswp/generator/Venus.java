@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 
 import org.abalazsik.arrowswp.Constants;
 import org.abalazsik.arrowswp.helper.ArrowsContext;
+import org.abalazsik.arrowswp.utils.GlowEffectUtil;
 import org.abalazsik.arrowswp.utils.KaleidoscopeUtil;
 
 import java.util.Random;
@@ -40,7 +41,11 @@ public class Venus extends Saturn {
 
 		baseImage.recycle();
 
-        return result;
+		Bitmap result2 = GlowEffectUtil.glow(result, context, 7.5f);
+
+		result.recycle();
+
+        return result2;
 	}
 
 }
