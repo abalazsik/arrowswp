@@ -117,6 +117,7 @@ public class GraphicsUtil {
     private static Paint contextToPaint(ArrowsContext context) {
         Paint paint =  new Paint();
         paint.setColor(getColor(context));
+        paint.setStrokeWidth(context.getGraphicsOptions().getLineWeight());
         return  paint;
     }
 

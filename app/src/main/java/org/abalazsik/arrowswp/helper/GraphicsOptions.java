@@ -12,6 +12,7 @@ public class GraphicsOptions {
 	private boolean displacementEnabled = false;
 	private float disp1 = 0.1f;
 	private float disp2 = 0.2f;
+	private float lineWeight = 1f;
 
 	private int color = Constants.ColorsAsInts.RED1;
 	private int color2 = Constants.ColorsAsInts.RED2;
@@ -120,6 +121,15 @@ public class GraphicsOptions {
 
 	public GraphicsOptions setAntialiasing(boolean antialiasing) {
 		this.antialiasing = antialiasing;
+		return this;
+	}
+
+	public float getLineWeight() {
+		return lineWeight;
+	}
+
+	public GraphicsOptions setLineWeight(float lineWeight) {
+		this.lineWeight = lineWeight;
 		return this;
 	}
 }

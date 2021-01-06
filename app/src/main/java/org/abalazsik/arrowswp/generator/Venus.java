@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 
 import org.abalazsik.arrowswp.Constants;
 import org.abalazsik.arrowswp.helper.ArrowsContext;
+import org.abalazsik.arrowswp.helper.GraphicsOptions;
 import org.abalazsik.arrowswp.utils.GlowEffectUtil;
 import org.abalazsik.arrowswp.utils.KaleidoscopeUtil;
 
@@ -21,13 +22,8 @@ public class Venus extends Saturn {
 		Bitmap baseImage =  super.generate(context);
 		
 		Random random = context.getRandom();
-        float f = random.nextFloat() * 0.5f + 0.25f;
-		
-        float srcCenterX = (f * context.getWidth());
-        float srcCenterY = (f * context.getHeight());
-
-        srcCenterX += srcCenterX * (random.nextFloat() * 0.2f - 0.1f);
-        srcCenterY += srcCenterY * (random.nextFloat() * 0.2f - 0.1f);
+		float srcCenterX = (random.nextFloat() * context.getWidth()/ 10);
+		float srcCenterY = (context.getHeight() / 4) + (random.nextFloat() * context.getHeight() / 4);
 
 		Bitmap result = KaleidoscopeUtil.generate(baseImage,
                 srcCenterX,
@@ -48,4 +44,8 @@ public class Venus extends Saturn {
         return result2;
 	}
 
+	@Override
+	public GraphicsOptions getPrefferedGraphicsOptions() {
+		return super.getPrefferedGraphicsOptions().setLineWeight(2f);
+	}
 }

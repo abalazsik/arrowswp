@@ -100,8 +100,8 @@ public class KaleidoscopeUtil {
 	}
 
 	private static class KPoint {
-		private float x, y;
-		private Vector basei , basej;
+		private final float x, y;
+		private final Vector basei , basej;
 
 		public KPoint(float x, float y, Vector basei, Vector basej) {
 			this.x = x;
@@ -114,37 +114,16 @@ public class KaleidoscopeUtil {
 			return x;
 		}
 
-		public void setX(float x) {
-			this.x = x;
-		}
-
 		public float getY() {
 			return y;
-		}
-
-		public void setY(float y) {
-			this.y = y;
 		}
 
 		public Vector getBasei() {
 			return basei;
 		}
 
-		public void setBasei(Vector basei) {
-			this.basei = basei;
-		}
-
 		public Vector getBasej() {
 			return basej;
-		}
-
-		public void setBasej(Vector basej) {
-			this.basej = basej;
-		}
-
-		@Override
-		public String toString() {
-			return "KPoint{" + "x=" + x + ", y=" + y + ", basei=" + basei + ", basej=" + basej + '}';
 		}
 
 	}
