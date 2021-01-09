@@ -31,7 +31,7 @@ public class Mars extends Jupiter {
                 context.getWidth() / 2f,
                 context.getHeight() / 2f,
                 random.nextFloat() * Constants.Math.TAU,
-                6,
+                random.nextBoolean()?6:8,
                 context.getGraphicsOptions()
                 );
 

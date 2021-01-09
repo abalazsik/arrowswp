@@ -57,6 +57,8 @@ public class Saturn implements BackgroundGenerator {
                 .setColor(Constants.ColorsAsInts.RED1)
                 .setColor2(Constants.ColorsAsInts.RED2)
                 .setRandomColor(true)
+                .setLineWeight(2f)
+                .setWrapBackground(true)
                 .setBackgroundColor(Constants.ColorsAsInts.BLACK);
     }
 }

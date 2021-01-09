@@ -31,7 +31,7 @@ public class Venus extends Saturn {
                 context.getWidth() / 2f,
                 context.getHeight() / 2f,
                 random.nextFloat() * Constants.Math.TAU,
-                6,
+                random.nextBoolean()?6:8,
                 context.getGraphicsOptions()
                 );
 

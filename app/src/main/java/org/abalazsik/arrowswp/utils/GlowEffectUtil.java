@@ -4,9 +4,10 @@ import android.graphics.Bitmap;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlend;
+
 import android.renderscript.ScriptIntrinsicBlur;
 
+import org.abalazsik.arrowswp.ScriptC_blend;
 import org.abalazsik.arrowswp.helper.ArrowsContext;
 
 public class GlowEffectUtil {
@@ -25,10 +26,16 @@ public class GlowEffectUtil {
         blur.setInput(tmpIn);
         blur.forEach(tmpOut);
 
-        ScriptIntrinsicBlend blend = ScriptIntrinsicBlend.create(rs, Element.RGBA_8888(rs));
 
-        blend.forEachAdd(tmpIn, tmpOut);
+
+        ScriptC_blend blend = new ScriptC_blend(rs);
+
+        blend.set_gOut(tmpOut);
+        blend.forEach_blend(tmpIn);
         tmpOut.copyTo(bmOut);
+
+        tmpIn.destroy();
+        tmpOut.destroy();
 
         return bmOut;
     }
