@@ -67,17 +67,19 @@ public class ArrowsWPService extends WallpaperService {
         }
 
         private void debounceAndRender(SurfaceHolder holder, boolean force) {
-            if ((force || System.currentTimeMillis() - lastUpdate > DEBOUNCE_INTERVAL) && !rendering) {
-                rendering = true;
-                Rect rect = holder.getSurfaceFrame();
-                if (bitmap != null && !bitmap.isRecycled()) {
-                    bitmap.recycle();
+            if (!rendering) {
+                if (force || System.currentTimeMillis() - lastUpdate > DEBOUNCE_INTERVAL) {
+                    rendering = true;
+                    Rect rect = holder.getSurfaceFrame();
+                    if (bitmap != null && !bitmap.isRecycled()) {
+                        bitmap.recycle();
+                    }
+                    bitmap = renderImage(rect.width(), rect.height(), ArrowsWPService.this);
+                    lastUpdate = System.currentTimeMillis();
+                    rendering = false;
                 }
-                bitmap = renderImage(rect.width(), rect.height(), ArrowsWPService.this);
-                lastUpdate = System.currentTimeMillis();
-                rendering = false;
+                drawFrame();
             }
-            drawFrame();
         }
 
         @Override
@@ -107,12 +109,12 @@ public class ArrowsWPService extends WallpaperService {
                     canvas.drawColor(0);
                     if(bitmap != null) {
                         canvas.drawBitmap(bitmap, 0, 0, null);
+
+                        holder.unlockCanvasAndPost(canvas);
                     }
                 }
-            } finally {
-                if(canvas != null) {
-                    holder.unlockCanvasAndPost(canvas);
-                }
+            } catch(IllegalStateException | IllegalArgumentException e) {
+                //failed to lock canvas, nothing to do
             }
         }
 
