@@ -7,9 +7,11 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 import org.abalazsik.arrowswp.generator.BackgroundGenerator;
+import org.abalazsik.arrowswp.generator.Ceres;
 import org.abalazsik.arrowswp.generator.Jupiter;
 import org.abalazsik.arrowswp.generator.Mars;
 import org.abalazsik.arrowswp.generator.Mercury;
@@ -41,11 +43,19 @@ public class ArrowsWPService extends WallpaperService {
         @Override
         public void onCreate(SurfaceHolder surfaceHolder) {
             super.onCreate(surfaceHolder);
+            this.setTouchEventsEnabled(true);
             prefs = PreferenceManager
                     .getDefaultSharedPreferences(ArrowsWPService.this);
             prefs.registerOnSharedPreferenceChangeListener(this);
             generator = getGeneratorByString(prefs.getString(Constants.UI.GENERATOR_TYPE, Constants.PlanetNames.JUPITER));
             colorScheme = prefs.getString(Constants.UI.COLOR_SCHEME, Constants.Strings.DEFAULT);
+        }
+
+        @Override
+        public void onTouchEvent(MotionEvent event) {
+            if(event.getAction() == MotionEvent.ACTION_UP) {
+                debounceAndRender(getSurfaceHolder(), false);
+            }
         }
 
         @Override
@@ -129,6 +139,8 @@ public class ArrowsWPService extends WallpaperService {
                 return new Mercury();
             } else if (Constants.PlanetNames.VENUS.equals(type)) {
                 return new Venus();
+            } else if (Constants.PlanetNames.CERES.equals(type)) {
+                return new Ceres();
             } else {
                 return new Saturn();
             }

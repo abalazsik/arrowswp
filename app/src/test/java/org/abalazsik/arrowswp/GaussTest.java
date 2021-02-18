@@ -34,10 +34,9 @@ public class GaussTest {
 
 			System.out.println(v);
 
-			if (!Float.isNaN(v.getI()) && !Float.isNaN(v.getJ())) {
-				Assert.assertEquals(C1, v.getI(), 0.000001f);
-				Assert.assertEquals(C2, v.getJ(), 0.000001f);
-			}
+			Assert.assertEquals(C1, v.getI(), 0.000001f);
+			Assert.assertEquals(C2, v.getJ(), 0.000001f);
+
 		}
 	}
 
@@ -49,6 +48,16 @@ public class GaussTest {
 		} else {
 			return (float)n;
 		}
+	}
+
+	@Test
+	public void test2() {
+		Vector v = Vector.gaussElimination(new Vector(2f, 5f), new Vector(0f, 1f), 7f, 3f);
+
+		System.out.println(v);
+
+		Assert.assertEquals(8/3f, v.getI(), 0.000001f);
+		Assert.assertEquals(1/3f, v.getJ(), 0.000001f);
 	}
 	
 }

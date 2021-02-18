@@ -6,6 +6,7 @@
         <item name="Mars">Mars</item>
         <item name="Mercury">Mercury</item>
         <item name="Venus">Venus</item>
+        <item name="Ceres">Ceres</item>
     </array>
     <array name="color_schemes">
         <item name="default">default</item>

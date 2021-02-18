@@ -30,6 +30,21 @@ public class Vector {
 
 	public static Vector gaussElimination(Vector baseI, Vector baseJ, float x, float y) {
 
+		if ((baseI.i == 0 && baseJ.i == 0) || (baseI.j == 0 && baseJ.j == 0)
+				|| (baseI.i == 0 && baseI.j == 0) || (baseJ.i == 0 && baseJ.j == 0)) {
+
+			throw new ArithmeticException(String.format("Can't solve: %s, %s, %f, %f", baseI.toString(), baseJ.toString(), x, y));//expecting two real results, so its ok to throw exception
+		}
+
+		if (baseI.i == 0) {
+			Vector tmp = baseI;
+			baseI = baseJ;
+			baseJ = tmp;
+			float t = x;
+			x = y;
+			y = t;
+		}
+
 		float a = baseI.getI();
 		float b = baseI.getJ();
 
@@ -37,13 +52,27 @@ public class Vector {
 		float d = baseJ.getJ();
 
 		//gauss elimination. Only do the necessary calculations
-		
-		b /= a;
-		x /= a;
+
+		if(a != 0f) {
+			b /= a;
+			x /= a;
+		} else {
+			x /= b;
+			//b = 1;
+
+			y -= d * x;
+			//d = 0;
+			y /= c;
+			//c = 1;
+
+			return new Vector(x, y);
+		}
 		//a = 1f;
-		
-		d /= c;
-		y /= c;
+
+		if (c != 0){
+			d /= c;
+			y /= c;
+		}
 		//c = 1f;
 		
 		//c = 0;// c -= a

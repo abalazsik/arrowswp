@@ -15,7 +15,7 @@ public class GraphicsUtilTest {
     @Test
     public void randomColorTest() {
 
-        ArrowsContext context = new ArrowsContext(200, 200,
+        ArrowsContext context = new ArrowsContext(200, 200, null,
                 new GraphicsOptions()
                         .setColor(0xffff0000)
                         .setColor2(0xff304300)
