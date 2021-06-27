@@ -28,6 +28,12 @@ public class ColorSchemeUtil {
 			options
 					.setColor(Constants.ColorsAsInts.GREEN1)
 					.setColor2(Constants.ColorsAsInts.GREEN2);
+
+		} else if (Constants.Strings.ORANGE.equals(scheme)) {
+			options
+					.setColor(Constants.ColorsAsInts.ORANGE1)
+					.setColor2(Constants.ColorsAsInts.ORANGE2)
+					.setBackgroundColor(Constants.ColorsAsInts.BLACK);
 		}
 
 		return options;

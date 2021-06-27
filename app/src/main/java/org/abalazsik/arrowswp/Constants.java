@@ -16,6 +16,9 @@ public class Constants {
 
         public static final int BLUE1 = 0xff0073fe;
         public static final int BLUE2 = 0xff00408e;
+
+        public static final int ORANGE1 = 0xffffb400;
+        public static final int ORANGE2 = 0xffff7300;
     }
 
     public class Math {
@@ -33,6 +36,7 @@ public class Constants {
         public static final String PINK = "pink";
         public static final String BLUE = "blue";
         public static final String GREEN = "green";
+        public static final String ORANGE = "orange";
     }
 
     public class PlanetNames {

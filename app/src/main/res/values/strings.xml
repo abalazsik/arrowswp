@@ -14,6 +14,7 @@
         <item name="pink">pink</item>
         <item name="blue">blue</item>
         <item name="green">green</item>
+        <item name="green">orange</item>
     </array>
     <string name="app_name">Arrows WallPaper</string>
 </resources>
