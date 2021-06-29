@@ -32,10 +32,17 @@ public class ColorSchemeUtil {
 		} else if (Constants.Strings.ORANGE.equals(scheme)) {
 			options
 					.setColor(Constants.ColorsAsInts.ORANGE1)
-					.setColor2(Constants.ColorsAsInts.ORANGE2)
-					.setBackgroundColor(Constants.ColorsAsInts.BLACK);
+					.setColor2(Constants.ColorsAsInts.ORANGE2);
 		}
 
 		return options;
+	}
+
+	public static GraphicsOptions applyBackgroundShade(String shade, GraphicsOptions options) {
+		if (Constants.Strings.DARK.equals(shade)) {
+			return options.setBackgroundColor(Constants.ColorsAsInts.BLACK);
+		} else {
+			return options.setBackgroundColor(Constants.ColorsAsInts.WHITE);
+		}
 	}
 }

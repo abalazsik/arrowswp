@@ -37,6 +37,7 @@ public class ArrowsWPService extends WallpaperService {
         private SharedPreferences prefs;
         private boolean rendering = false;
         private String colorScheme = Constants.Strings.DEFAULT;
+        private String backgroundShade = Constants.Strings.DARK;
 
         private static final long DEBOUNCE_INTERVAL = 7000;
 
@@ -49,6 +50,7 @@ public class ArrowsWPService extends WallpaperService {
             prefs.registerOnSharedPreferenceChangeListener(this);
             generator = getGeneratorByString(prefs.getString(Constants.UI.GENERATOR_TYPE, Constants.PlanetNames.JUPITER));
             colorScheme = prefs.getString(Constants.UI.COLOR_SCHEME, Constants.Strings.DEFAULT);
+            backgroundShade = prefs.getString(Constants.UI.BACKGROUND_SHADE, Constants.Strings.DARK);
         }
 
         @Override
@@ -96,16 +98,19 @@ public class ArrowsWPService extends WallpaperService {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             if (Constants.UI.GENERATOR_TYPE.equals(key)) {
                 generator = getGeneratorByString(prefs.getString(Constants.UI.GENERATOR_TYPE, Constants.PlanetNames.JUPITER));
-                debounceAndRender(getSurfaceHolder(), true);
             } else if (Constants.UI.COLOR_SCHEME.equals(key)) {
                 colorScheme = prefs.getString(Constants.UI.COLOR_SCHEME, Constants.Strings.DEFAULT);
+            } else if (Constants.UI.BACKGROUND_SHADE.equals(key)) {
+                backgroundShade = prefs.getString(Constants.UI.BACKGROUND_SHADE, Constants.Strings.DARK);
             }
         }
 
         private Bitmap renderImage(int width, int height, Context context) {
             return generator.generate(
                     new ArrowsContext(width, height, context,
-                            ColorSchemeUtil.applyColorScheme(colorScheme, generator.getPrefferedGraphicsOptions())));
+                            ColorSchemeUtil.applyBackgroundShade(backgroundShade,
+                                    ColorSchemeUtil.applyColorScheme(colorScheme,
+                                            generator.getPrefferedGraphicsOptions()))));
         }
 
         private void drawFrame() {

@@ -28,6 +28,7 @@ public class Constants {
     public class UI{
         public static final String GENERATOR_TYPE = "generator-type";
         public static final String COLOR_SCHEME = "color-scheme";
+        public static final String BACKGROUND_SHADE = "background-shade";
     }
 
     public class Strings {
@@ -37,6 +38,9 @@ public class Constants {
         public static final String BLUE = "blue";
         public static final String GREEN = "green";
         public static final String ORANGE = "orange";
+
+        public static final String DARK = "dark";
+        public static final String LIGHT = "light";
     }
 
     public class PlanetNames {

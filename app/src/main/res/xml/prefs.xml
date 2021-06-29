@@ -12,4 +12,10 @@
         android:entryValues="@array/color_schemes"
         android:key="color-scheme"
         android:title="Colorscheme" />
+    <ListPreference
+        android:defaultValue="default"
+        android:entries="@array/background_shade"
+        android:entryValues="@array/background_shade"
+        android:key="background-shade"
+        android:title="Background Shade" />
 </PreferenceScreen>
