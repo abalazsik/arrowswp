@@ -2,7 +2,10 @@
 package org.abalazsik.arrowswp.utils;
 
 import org.abalazsik.arrowswp.Constants;
+import org.abalazsik.arrowswp.helper.ArrowsContext;
 import org.abalazsik.arrowswp.helper.GraphicsOptions;
+
+import java.util.Random;
 
 /**
  *
@@ -10,7 +13,16 @@ import org.abalazsik.arrowswp.helper.GraphicsOptions;
  */
 public class ColorSchemeUtil {
 
-	public static GraphicsOptions applyColorScheme(String scheme, GraphicsOptions options) {
+	private static final String[] SCHEMES = {
+			Constants.Strings.RED,
+			Constants.Strings.PINK,
+			Constants.Strings.BLUE,
+			Constants.Strings.GREEN,
+			Constants.Strings.ORANGE
+	};
+
+	public static GraphicsOptions applyColorScheme(String scheme, GraphicsOptions options, Random random) {
+
 		if (Constants.Strings.RED.equals(scheme)) {
 			options
 					.setColor(Constants.ColorsAsInts.RED1)
@@ -33,6 +45,8 @@ public class ColorSchemeUtil {
 			options
 					.setColor(Constants.ColorsAsInts.ORANGE1)
 					.setColor2(Constants.ColorsAsInts.ORANGE2);
+		} else if (Constants.Strings.RANDOM.equals(scheme)) {
+			return applyColorScheme(SCHEMES[random.nextInt(SCHEMES.length)], options, null);
 		}
 
 		return options;

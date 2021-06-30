@@ -18,15 +18,13 @@ public class GlowEffectUtil {
         }
 
         RenderScript rs = RenderScript.create(context.getContext());
-        Bitmap bmOut = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap bmOut = context.get();
         ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(rs, Element.RGBA_8888(rs));;
         Allocation tmpIn = Allocation.createFromBitmap(rs, source);
         Allocation tmpOut = Allocation.createFromBitmap(rs, bmOut);
         blur.setRadius(blurSize);
         blur.setInput(tmpIn);
         blur.forEach(tmpOut);
-
-
 
         ScriptC_blend blend = new ScriptC_blend(rs);
 

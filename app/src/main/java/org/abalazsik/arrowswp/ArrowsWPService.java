@@ -21,6 +21,8 @@ import org.abalazsik.arrowswp.generator.Venus;
 import org.abalazsik.arrowswp.helper.ArrowsContext;
 import org.abalazsik.arrowswp.utils.ColorSchemeUtil;
 
+import java.util.Random;
+
 //CHECK OUT THIS CHOON: https://soundcloud.com/justicehardcore/5year
 
 public class ArrowsWPService extends WallpaperService {
@@ -28,6 +30,12 @@ public class ArrowsWPService extends WallpaperService {
     @Override
     public Engine onCreateEngine() {
         return new ArrowsWPEngine();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ArrowsContext.destory();
     }
 
     public class ArrowsWPEngine extends Engine implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -39,7 +47,7 @@ public class ArrowsWPService extends WallpaperService {
         private String colorScheme = Constants.Strings.DEFAULT;
         private String backgroundShade = Constants.Strings.DARK;
 
-        private static final long DEBOUNCE_INTERVAL = 7000;
+        private static final long DEBOUNCE_INTERVAL = 4000;
 
         @Override
         public void onCreate(SurfaceHolder surfaceHolder) {
@@ -83,8 +91,8 @@ public class ArrowsWPService extends WallpaperService {
                 if (force || System.currentTimeMillis() - lastUpdate > DEBOUNCE_INTERVAL) {
                     rendering = true;
                     Rect rect = holder.getSurfaceFrame();
-                    if (bitmap != null && !bitmap.isRecycled()) {
-                        bitmap.recycle();
+                    if (bitmap != null) {
+                        ArrowsContext.release(bitmap);
                     }
                     bitmap = renderImage(rect.width(), rect.height(), ArrowsWPService.this);
                     lastUpdate = System.currentTimeMillis();
@@ -106,11 +114,13 @@ public class ArrowsWPService extends WallpaperService {
         }
 
         private Bitmap renderImage(int width, int height, Context context) {
+            Random random = new Random();
             return generator.generate(
                     new ArrowsContext(width, height, context,
                             ColorSchemeUtil.applyBackgroundShade(backgroundShade,
                                     ColorSchemeUtil.applyColorScheme(colorScheme,
-                                            generator.getPrefferedGraphicsOptions()))));
+                                            generator.getPrefferedGraphicsOptions(), random
+                                            )), random));
         }
 
         private void drawFrame() {

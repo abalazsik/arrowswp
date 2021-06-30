@@ -24,10 +24,10 @@ public class Mercury extends Saturn {
                 context.getHeight() / 2f,
                 random.nextFloat() * Constants.Math.TAU,
                 6,
-                context.getGraphicsOptions()
+                context
         );
 
-        baseImage.recycle();
+        context.release(baseImage);
 
         return result;
     }

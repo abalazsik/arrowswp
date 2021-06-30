@@ -29,7 +29,7 @@ public class Ceres implements BackgroundGenerator {
 		GraphicsOptions options = context.getGraphicsOptions();
 		Random random = context.getRandom();
 
-		Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+		Bitmap result = context.get();
 
 		Canvas c = new Canvas(result);
 

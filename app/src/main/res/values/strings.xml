@@ -15,6 +15,7 @@
         <item name="blue">blue</item>
         <item name="green">green</item>
         <item name="green">orange</item>
+        <item name="random">random</item>
     </array>
     <array name="background_shade">
         <item name="dark">dark</item>

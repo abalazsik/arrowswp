@@ -21,7 +21,7 @@ public class Neptune implements BackgroundGenerator {
         int width = context.getWidth();
         int height = context.getHeight();
 
-        Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap result = context.get();
 
         Canvas c = new Canvas(result);
 

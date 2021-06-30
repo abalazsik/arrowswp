@@ -32,14 +32,14 @@ public class Venus extends Saturn {
                 context.getHeight() / 2f,
                 random.nextFloat() * Constants.Math.TAU,
                 random.nextBoolean()?6:8,
-                context.getGraphicsOptions()
+                context
                 );
 
-		baseImage.recycle();
+		context.release(baseImage);
 
 		Bitmap result2 = GlowEffectUtil.glow(result, context, 7.5f);
 
-		result.recycle();
+		context.release(result);
 
         return result2;
 	}

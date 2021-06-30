@@ -23,7 +23,7 @@ public class Saturn implements BackgroundGenerator {
         int height = context.getHeight();
         GraphicsOptions options = context.getGraphicsOptions();
 
-        Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap result = context.get();
 
         Canvas c = new Canvas(result);
 

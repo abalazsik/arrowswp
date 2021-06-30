@@ -38,6 +38,7 @@ public class Constants {
         public static final String BLUE = "blue";
         public static final String GREEN = "green";
         public static final String ORANGE = "orange";
+        public static final String RANDOM = "random";
 
         public static final String DARK = "dark";
         public static final String LIGHT = "light";
