@@ -8,8 +8,8 @@ android {
         applicationId "org.abalazsik.arrowswp"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "0.1.0"
+        versionCode 2
+        versionName "0.1.1"
 
         renderscriptTargetApi 18
         renderscriptSupportModeEnabled false
